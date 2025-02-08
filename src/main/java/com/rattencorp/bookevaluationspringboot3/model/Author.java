@@ -1,5 +1,6 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.TreeSet;
 
 public class Author implements Serializable, Comparable<Author> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final int authorId;

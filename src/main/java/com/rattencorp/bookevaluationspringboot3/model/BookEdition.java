@@ -1,5 +1,6 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -15,6 +16,7 @@ public record BookEdition(
 
 ) implements Serializable, Comparable<BookEdition> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
 

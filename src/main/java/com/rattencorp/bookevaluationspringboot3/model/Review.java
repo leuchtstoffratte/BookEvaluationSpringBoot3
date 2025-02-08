@@ -1,10 +1,12 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Review implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final Reviewer reviewer;

@@ -1,11 +1,13 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Publisher implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final String publisherName;

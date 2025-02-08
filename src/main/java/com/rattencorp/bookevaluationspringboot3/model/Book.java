@@ -2,12 +2,14 @@ package com.rattencorp.bookevaluationspringboot3.model;
 
 import org.springframework.lang.NonNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
 public record Book(String title, Author author) implements Serializable, Comparable<Book> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override
