@@ -1,21 +1,20 @@
 package com.rattencorp.bookevaluationspringboot3.api;
 
 import com.rattencorp.bookevaluationspringboot3.model.Author;
+import com.rattencorp.bookevaluationspringboot3.model.Book;
 import com.rattencorp.bookevaluationspringboot3.model.BookEdition;
 
-import java.util.List;
+import java.util.Set;
 
 public interface LibraryService {
 
-
-
-    List<BookEdition> getBooksByAuthor(Author author);
+    Set<BookEdition> getBooksByAuthor(Author author);
 
     BookEdition getBookById(int id);
 
     void addBook(BookEdition book);
 
-    BookEdition getBookByTitle(String title);
+    Book getBookByTitle(String title);
 
-
+    Set<BookEdition> getEditionsByTitle(String title);
 }
