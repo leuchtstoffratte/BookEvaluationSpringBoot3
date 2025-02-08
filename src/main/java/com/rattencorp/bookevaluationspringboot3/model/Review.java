@@ -12,7 +12,7 @@ public class Review implements Serializable {
     private String title;
     private Rating rating;
     private LocalDate reviewDate;
-
+    private Book book;
 
 
 
