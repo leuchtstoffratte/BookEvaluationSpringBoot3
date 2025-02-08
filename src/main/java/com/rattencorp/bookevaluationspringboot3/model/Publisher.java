@@ -8,11 +8,13 @@ public class Publisher implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    private final String publisherName;
     private final Set<BookEdition> books;
     private final Set<Author> authors;
 
 
-    public Publisher() {
+    public Publisher(String name) {
+        this.publisherName = name;
         this.books = new HashSet<>();
         this.authors = new HashSet<>();
     }
@@ -33,4 +35,7 @@ public class Publisher implements Serializable {
         authors.add(author);
     }
 
+    public String getPublisherName() {
+        return publisherName;
+    }
 }
