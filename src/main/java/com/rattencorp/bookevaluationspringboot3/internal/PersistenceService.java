@@ -1,4 +1,4 @@
-package com.rattencorp.bookevaluationspringboot3.api;
+package com.rattencorp.bookevaluationspringboot3.internal;
 
 import com.rattencorp.bookevaluationspringboot3.model.*;
 
@@ -30,5 +30,7 @@ public interface PersistenceService {
 
     Set<Book> getAllBooks();
     Set<BookEdition> getAllEditions();
+
+    Set<Author> getAllAuthors();
 
 }

@@ -1,6 +1,6 @@
 package com.rattencorp.bookevaluationspringboot3.services;
 
-import com.rattencorp.bookevaluationspringboot3.api.PersistenceService;
+import com.rattencorp.bookevaluationspringboot3.internal.PersistenceService;
 import com.rattencorp.bookevaluationspringboot3.model.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -117,5 +117,10 @@ public class PersistenceServiceImpl implements PersistenceService {
                 .stream()
                 .flatMap(Set::stream)
                 .collect(Collectors.toUnmodifiableSet());
+    }
+
+    @Override
+    public Set<Author> getAllAuthors() {
+        return Collections.unmodifiableSet(authors);
     }
 }
