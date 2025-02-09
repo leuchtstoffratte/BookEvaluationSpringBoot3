@@ -3,7 +3,6 @@ package com.rattencorp.bookevaluationspringboot3.services;
 import com.rattencorp.bookevaluationspringboot3.model.Author;
 import com.rattencorp.bookevaluationspringboot3.model.Book;
 import com.rattencorp.bookevaluationspringboot3.model.BookEdition;
-import com.rattencorp.bookevaluationspringboot3.model.Publisher;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ import java.util.Set;
 class PersistenceServiceImplTest {
 
 
-    private static final String PUBLISHER = "Publisher";
     private static final String AUTHOR_NAME = "Author";
     private static final String AUTHOR_SURNAME = "McAuthorson";
     private static final String ISBN = "ISBN";
