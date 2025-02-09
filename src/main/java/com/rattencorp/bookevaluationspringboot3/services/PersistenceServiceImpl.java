@@ -123,4 +123,12 @@ public class PersistenceServiceImpl implements PersistenceService {
     public Set<Author> getAllAuthors() {
         return Collections.unmodifiableSet(authors);
     }
+
+    @Override
+    public Set<Review> getAllReviewsForBook(Book book) {
+        return editions.getOrDefault(book, new HashSet<>())
+                .stream()
+                .flatMap(s -> reviews.getOrDefault(s, new HashSet<>()).stream())
+                .collect(Collectors.toUnmodifiableSet());
+    }
 }

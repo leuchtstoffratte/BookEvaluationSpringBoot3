@@ -33,4 +33,6 @@ public interface PersistenceService {
 
     Set<Author> getAllAuthors();
 
+    Set<Review> getAllReviewsForBook(Book book);
+
 }
