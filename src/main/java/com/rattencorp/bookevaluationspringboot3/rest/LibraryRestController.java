@@ -1,6 +1,7 @@
 package com.rattencorp.bookevaluationspringboot3.rest;
 
 
+import com.rattencorp.bookevaluationspringboot3.api.AuthorsService;
 import com.rattencorp.bookevaluationspringboot3.api.LibraryService;
 import com.rattencorp.bookevaluationspringboot3.model.Author;
 import com.rattencorp.bookevaluationspringboot3.model.BookEdition;
@@ -18,11 +19,13 @@ public class LibraryRestController {
     private static final Log LOG = LogFactory.getLog(LibraryRestController.class);
 
     private final LibraryService libraryService;
+    private final AuthorsService authorsService;
 
 
     @Autowired
-    public LibraryRestController(LibraryService libraryService) {
+    public LibraryRestController(LibraryService libraryService, AuthorsService authorsService) {
         this.libraryService = libraryService;
+        this.authorsService = authorsService;
     }
 
 
@@ -47,6 +50,11 @@ public class LibraryRestController {
     }
 
 
-
+    @GetMapping(path="listAuthors")
+    @ResponseBody
+    public List<Author> listAuthors() {
+        LOG.debug("listAuthors");
+        return authorsService.getAuthors();
+    }
 
 }
