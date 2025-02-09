@@ -111,7 +111,7 @@ class PersistenceServiceImplTest {
     }
 
     private BookEdition defaultBookEdition(){
-        return new BookEdition(defaultBook(), ISBN, new Publisher(PUBLISHER),
+        return new BookEdition(defaultBook(), ISBN,
                 LocalDate.of(2025, 5, 12),1,
                 BookEdition.BookForm.HARDCOVER );
     }

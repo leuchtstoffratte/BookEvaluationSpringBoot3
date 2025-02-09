@@ -40,7 +40,6 @@ public class PersistenceServiceImpl implements PersistenceService {
         persistBook(bookEdition.book());
         editions.get(bookEdition.book()).add(bookEdition);
         reviews.putIfAbsent(bookEdition, new HashSet<>());
-        publishers.add(bookEdition.publisher());
     }
 
     @Override
