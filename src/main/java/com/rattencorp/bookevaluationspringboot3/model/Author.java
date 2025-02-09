@@ -23,6 +23,13 @@ public class Author implements Serializable, Comparable<Author> {
         this.books = new TreeSet<>();
     }
 
+    public Author(int authorId, String name, String surname) {
+        this.authorId = authorId;
+        this.name = name;
+        this.surname = surname;
+        this.books = new TreeSet<>();
+    }
+
     public String getName() {
         return name;
     }
