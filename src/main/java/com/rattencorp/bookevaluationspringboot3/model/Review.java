@@ -72,6 +72,18 @@ public class Review implements Serializable {
         return book;
     }
 
+
+    public void updateReview(Review review) {
+        this.reviewDate = review.getReviewDate();
+        this.rating = review.getRating();
+        this.text = review.getText();
+        this.title = review.getTitle();
+
+    }
+
+
+
+
     public enum Rating{
         VERY_GOOD,
         GOOD,
