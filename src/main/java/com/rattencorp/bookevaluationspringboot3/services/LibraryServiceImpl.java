@@ -1,7 +1,7 @@
 package com.rattencorp.bookevaluationspringboot3.services;
 
 import com.rattencorp.bookevaluationspringboot3.api.LibraryService;
-import com.rattencorp.bookevaluationspringboot3.api.PersistenceService;
+import com.rattencorp.bookevaluationspringboot3.internal.PersistenceService;
 import com.rattencorp.bookevaluationspringboot3.model.Author;
 import com.rattencorp.bookevaluationspringboot3.model.Book;
 import com.rattencorp.bookevaluationspringboot3.model.BookEdition;
