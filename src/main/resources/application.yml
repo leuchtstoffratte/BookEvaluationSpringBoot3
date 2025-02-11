@@ -10,7 +10,6 @@ server:
     port:
         8081
 
-        
 ---
 spring:
     config:
@@ -45,4 +44,3 @@ com:
                 interceptorLevel: EXECPTIONS
         
         
-
