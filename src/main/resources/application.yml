@@ -1,0 +1,46 @@
+## YAML Template.
+---
+spring:
+    application:
+        name:
+            BookEvaluationSpringBoot3
+            
+            
+server:
+    port:
+        8081
+
+        
+---
+spring:
+    config:
+        activate:
+            on-profile: dev
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include:
+                    shutdown, loggers
+    endpoint:
+        shutdown:
+            access: unrestricted
+
+
+
+---
+
+#aop-profile
+
+spring:
+    config:
+        activate:
+            on-profile: aop-profile
+            
+com:
+    rattencorp:
+        aspects:
+            AopConfigParameters:
+                interceptorLevel: EXECPTIONS
+        
