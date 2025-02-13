@@ -4,7 +4,8 @@
  */
 package com.rattencorp.aspects;
 
-import com.rattencorp.aspects.interceptors.logging.DebugLoggingInterceptor;
+import com.rattencorp.aspects.interceptors.logging.AopDebugLoggingInterceptor;
+import com.rattencorp.aspects.interceptors.logging.AspectJDebugLoggingInterceptor;
 import com.rattencorp.aspects.interceptors.logging.ErrorTracingInterceptor;
 import com.rattencorp.aspects.interceptors.logging.LoggingInterceptor;
 import com.rattencorp.aspects.interceptors.logging.NoopLoggingInterceptor;
@@ -21,7 +22,6 @@ import org.springframework.context.annotation.Profile;
  *
  * @author <intentionally left blank>
  */
-
 @Configuration
 @EnableConfigurationProperties({AopConfig.class})
 public class AopConfig {
@@ -37,14 +37,13 @@ public class AopConfig {
     @Autowired
     public LoggingInterceptor createLoggingInterceptor(AopConfigParameters configParams){
         
-        LOG.fatal(()-> "got configParams: '%s'".formatted(configParams));
+        LOG.info(()-> "got configParams: '%s'".formatted(configParams));
 
-        
         return switch (configParams.interceptorLevel()){
             case NONE -> new NoopLoggingInterceptor();
             case EXCEPTIONS -> new ErrorTracingInterceptor();
-            case DEBUG_AOP -> null;
-            case DEBUG_ASPECTJ -> new DebugLoggingInterceptor();
+            case DEBUG_AOP -> new AopDebugLoggingInterceptor();
+            case DEBUG_ASPECTJ -> new AspectJDebugLoggingInterceptor();
         };
         
         

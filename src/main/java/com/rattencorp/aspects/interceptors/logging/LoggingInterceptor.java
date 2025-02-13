@@ -11,6 +11,7 @@ package com.rattencorp.aspects.interceptors.logging;
  */
 public sealed interface LoggingInterceptor permits  NoopLoggingInterceptor, 
                                                     ErrorTracingInterceptor, 
-                                                    DebugLoggingInterceptor{
-    
+                                                    AspectJDebugLoggingInterceptor,
+                                                    AopDebugLoggingInterceptor{
+
 }

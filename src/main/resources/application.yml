@@ -10,6 +10,15 @@ server:
     port:
         8081
 
+#enable structured logging
+logging:
+    file:
+        name: log.json
+    structured:
+        format:
+            console: ecs
+            file: ecs
+            
 ---
 spring:
     config:

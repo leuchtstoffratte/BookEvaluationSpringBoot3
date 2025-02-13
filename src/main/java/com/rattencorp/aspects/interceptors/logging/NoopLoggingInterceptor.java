@@ -10,6 +10,6 @@ package com.rattencorp.aspects.interceptors.logging;
  */
 public final class NoopLoggingInterceptor implements LoggingInterceptor{
     
-    
-    
+    //doesn't do anything
+
 }
