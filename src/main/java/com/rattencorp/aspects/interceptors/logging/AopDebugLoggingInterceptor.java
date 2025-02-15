@@ -20,7 +20,7 @@ import org.springframework.aop.Pointcut;
 public final class AopDebugLoggingInterceptor implements LoggingInterceptor, BeforeAdvice{
     
     
-    private static final Logger LOG = LoggerFactory.getLogger(AspectJDebugLoggingInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AopDebugLoggingInterceptor.class);
     
     
     public static class AopLoggingPointcut implements Pointcut{

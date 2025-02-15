@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Profile;
  * @author <intentionally left blank>
  */
 @Configuration
-@EnableConfigurationProperties({AopConfig.class})
+@EnableConfigurationProperties({AopConfigParameters.class})
 public class AopConfig {
 
 
