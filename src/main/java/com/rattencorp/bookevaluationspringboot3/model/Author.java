@@ -1,5 +1,7 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Comparator;
@@ -23,6 +25,7 @@ public class Author implements Serializable, Comparable<Author> {
         this.books = new TreeSet<>();
     }
 
+    @JsonCreator
     public Author(int authorId, String name, String surname) {
         this.authorId = authorId;
         this.name = name;
