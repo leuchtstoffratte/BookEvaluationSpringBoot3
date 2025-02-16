@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <app.profiles>dev,aop-profile</app.profiles>
     </properties>
     <dependencies>
         <dependency>
@@ -89,6 +90,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <profiles>${app.profiles}</profiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>
