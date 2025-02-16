@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>glowing rat's book collection</title>
+</head>
+<body>
+
+    <form action="#" th:action="@{/web/library/listBooksByAuthor}" th:object="author" method="post">
+
+        <input type="text" name="authorSurname" value="" th:value="${author.surname}" />
+        <input type="text" name="authorName" value="" th:value="${author.name}"/>
+        <input type="text" name="authorId" value="" th:value="${author.authorId}"/>
+
+        <button type="submit">Fetch books</button>
+    </form>
+
+    <table>
+        <thead>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Edition</th>
+        </thead>
+
+        <tr th:each="book : ${books}">
+            <td th:text="${book.book.title}"></td>
+            <td th:text="${book.book.author.name} ${book.book.author.surname}"></td>
+            <td th:text="${book.form}, ${book.editin} edition"></td>
+        </tr>
+    </table>
+
+</body>
+</html>
