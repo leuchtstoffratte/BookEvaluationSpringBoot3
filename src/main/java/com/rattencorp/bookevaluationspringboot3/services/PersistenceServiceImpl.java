@@ -2,12 +2,16 @@ package com.rattencorp.bookevaluationspringboot3.services;
 
 import com.rattencorp.bookevaluationspringboot3.internal.PersistenceService;
 import com.rattencorp.bookevaluationspringboot3.model.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
 
-import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -18,7 +22,7 @@ import java.util.stream.Collectors;
 @ApplicationScope
 public class PersistenceServiceImpl implements PersistenceService {
 
-    private final Set<Author> authors = new HashSet<Author>();
+    private final Set<Author> authors = new HashSet<>();
     private final Map<Book, Set<BookEdition>> editions = new HashMap<>();
     private final Map<BookEdition,Set<Review>> reviews = new HashMap<>();
     private final Set<Reviewer> reviewers = new HashSet<>();
@@ -30,7 +34,7 @@ public class PersistenceServiceImpl implements PersistenceService {
     public void persistBook(Book book) {
         LOG.debug("persisting book '%s'".formatted(book));
         editions.putIfAbsent(book, new HashSet<>());
-        persistAuthor(book.author());
+        book.authors().forEach(this::persistAuthor);
     }
 
     @Override
@@ -67,7 +71,7 @@ public class PersistenceServiceImpl implements PersistenceService {
         return editions.values()
                 .stream()
                 .flatMap(Set::stream)
-                .filter(e -> e.isbn().equalsIgnoreCase(isbn))
+                .filter(e -> e.numberIsbn().equalsIgnoreCase(isbn))
                 .findFirst()
                 .orElse(null);
     }
@@ -84,7 +88,7 @@ public class PersistenceServiceImpl implements PersistenceService {
     @Override
     public Set<Book> findAllBookByAuthor(Author author) {
         return editions.keySet().stream()
-                .filter(e -> e.author().equals(author))
+                .filter(e -> e.authors().contains(author))
                 .collect(Collectors.toSet());
     }
 

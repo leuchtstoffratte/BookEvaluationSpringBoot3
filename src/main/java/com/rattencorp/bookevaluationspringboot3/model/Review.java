@@ -1,14 +1,25 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+@Entity
 public class Review implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int reviewId;
+    
+    @ManyToOne
     private final Reviewer reviewer;
     private String text;
     private String title;
@@ -22,7 +33,8 @@ public class Review implements Serializable {
         this.book = book;
     }
 
-    public Review(Reviewer reviewer, String text, String title, Rating rating, LocalDate reviewDate, BookEdition book) {
+    public Review(int reviewId, Reviewer reviewer, String text, String title, Rating rating, LocalDate reviewDate, BookEdition book) {
+        this.reviewId = reviewId;
         this.reviewer = reviewer;
         this.text = text;
         this.title = title;
@@ -31,6 +43,14 @@ public class Review implements Serializable {
         this.book = book;
     }
 
+    public int getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(int reviewId) {
+        this.reviewId = reviewId;
+    }
+    
     public Reviewer getReviewer() {
         return reviewer;
     }
