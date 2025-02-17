@@ -1,6 +1,11 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -9,15 +14,19 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
+@Entity
 public class Author implements Serializable, Comparable<Author> {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final int authorId;
     private String name;
     private String surname;
 
+    @ManyToMany
     private final Set<BookEdition> books;
 
     public Author(int authorId) {

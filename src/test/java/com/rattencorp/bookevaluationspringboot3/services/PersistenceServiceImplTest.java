@@ -15,6 +15,7 @@ class PersistenceServiceImplTest {
 
     private static final String AUTHOR_NAME = "Author";
     private static final String AUTHOR_SURNAME = "McAuthorson";
+    private static final int BOOK_ID = 0;    
     private static final String ISBN = "ISBN";
     private static final String BOOK_TITLE = "Wonderful world of testing";
 
@@ -88,7 +89,7 @@ class PersistenceServiceImplTest {
         testObj.persistEdition(inEdition);
 
         //WHEN
-        final BookEdition result = testObj.findBookByIsbn(inEdition.isbn());
+        final BookEdition result = testObj.findBookByIsbn(inEdition.numberIsbn());
 
         //THEN
         Assertions.assertThat(result).isEqualTo(inEdition);
@@ -105,7 +106,7 @@ class PersistenceServiceImplTest {
     }
 
     private Book defaultBook(){
-        return new Book(BOOK_TITLE, defaultAuthor());
+        return new Book(BOOK_ID, BOOK_TITLE, Set.of(defaultAuthor()));
     }
 
     private BookEdition defaultBookEdition(){

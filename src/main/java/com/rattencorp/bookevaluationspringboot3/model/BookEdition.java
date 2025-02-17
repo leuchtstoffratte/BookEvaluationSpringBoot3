@@ -1,14 +1,21 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
+import jakarta.persistence.Entity;
 import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Objects;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import java.io.Serializable;
+
+@Entity
 public record BookEdition(
+        @ManyToOne
         Book book,
-        String isbn,
+        @Id
+        String numberIsbn, //isbn-number needs a prefix to avoid confusing jakarta into looking for boolean bn
         LocalDate publishedDate,
         int edition,
         BookForm form
@@ -23,11 +30,11 @@ public record BookEdition(
     public boolean equals(Object obj) {
         if(this == obj) return true;
         if (obj instanceof BookEdition(
-                Book book1, String isbn1, LocalDate date, int edition1, BookForm form1
+                Book book1, String numberIsbn1, LocalDate date, int edition1, BookForm form1
                 )
         ) {
             return Objects.equals(this.book, book1)
-                    && Objects.equals(this.isbn, isbn1)
+                    && Objects.equals(this.numberIsbn, numberIsbn1)
                     && Objects.equals(this.publishedDate, date)
                     && Objects.equals(this.edition, edition1)
                     && Objects.equals(this.form, form1);
@@ -38,7 +45,7 @@ public record BookEdition(
     @Override
     public int hashCode() {
         return Objects.hash(book,
-                isbn,
+                numberIsbn,
                 publishedDate,
                 edition,
                 form);
@@ -46,7 +53,7 @@ public record BookEdition(
 
     @Override
     public String toString() {
-        return "%d,%s edition of '%s' by %s".formatted(edition, form, book.title(), book.author());
+        return "%d,%s edition of '%s' by %s".formatted(edition, form, book.title(), book.authors());
     }
 
     @Override
