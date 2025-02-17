@@ -14,7 +14,6 @@ public interface PersistenceService {
 
     void persistReview(Review review);
 
-    void persistPublisher(Publisher publisher);
 
     void persistReviewer(Reviewer reviewer);
 

@@ -21,7 +21,6 @@ public class PersistenceServiceImpl implements PersistenceService {
     private final Set<Author> authors = new HashSet<Author>();
     private final Map<Book, Set<BookEdition>> editions = new HashMap<>();
     private final Map<BookEdition,Set<Review>> reviews = new HashMap<>();
-    private final Set<Publisher> publishers = new HashSet<>();
     private final Set<Reviewer> reviewers = new HashSet<>();
 
 
@@ -57,10 +56,6 @@ public class PersistenceServiceImpl implements PersistenceService {
         }
     }
 
-    @Override
-    public void persistPublisher(Publisher publisher) {
-        publishers.add(publisher);
-    }
 
     @Override
     public void persistReviewer(Reviewer reviewer) {
