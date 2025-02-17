@@ -19,7 +19,7 @@
     </licenses>
     <properties>
         <java.version>21</java.version>
-        <app.profiles>dev,aop-profile</app.profiles>
+        <app.profiles>dev,aop-profile,h2-profile</app.profiles>
     </properties>
     <dependencies>
         <dependency>
