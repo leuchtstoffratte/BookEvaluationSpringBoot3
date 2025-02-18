@@ -3,12 +3,19 @@ package com.rattencorp.bookevaluationspringboot3.services;
 import com.rattencorp.bookevaluationspringboot3.model.Author;
 import com.rattencorp.bookevaluationspringboot3.model.Book;
 import com.rattencorp.bookevaluationspringboot3.model.BookEdition;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.AuthorRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.BookEditionRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.BookRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.ReviewRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.ReviewerRepository;
+import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Set;
+import org.mockito.Mockito;
 
 class PersistenceServiceImplTest {
 
@@ -19,12 +26,32 @@ class PersistenceServiceImplTest {
     private static final String ISBN = "ISBN";
     private static final String BOOK_TITLE = "Wonderful world of testing";
 
+    //subs
+    private EntityManager entityManagerStub;
+    private AuthorRepository authorRepoStub;
+    private BookRepository bookRepoStub;
+    private BookEditionRepository bookEditionRepoStub;
+    private ReviewRepository reviewRepoStub;
+    private ReviewerRepository reviewerRepoStub;
+
+    
     private PersistenceServiceImpl testObj;
 
 
     @BeforeEach
     void setUp() {
-        testObj = new PersistenceServiceImpl();
+        
+    entityManagerStub = Mockito.mock(EntityManager.class);
+    authorRepoStub = Mockito.mock(AuthorRepository.class);
+    bookRepoStub = Mockito.mock(BookRepository.class);
+    bookEditionRepoStub = Mockito.mock(BookEditionRepository.class);
+    reviewRepoStub = Mockito.mock(ReviewRepository.class);
+    reviewerRepoStub = Mockito.mock(ReviewerRepository.class);
+        
+
+        
+        testObj = new PersistenceServiceImpl(entityManagerStub, authorRepoStub, 
+                bookRepoStub, bookEditionRepoStub, reviewRepoStub, reviewerRepoStub);
     }
 
     @Test

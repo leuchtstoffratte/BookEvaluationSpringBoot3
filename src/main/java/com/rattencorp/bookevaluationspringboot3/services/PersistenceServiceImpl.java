@@ -2,6 +2,13 @@ package com.rattencorp.bookevaluationspringboot3.services;
 
 import com.rattencorp.bookevaluationspringboot3.internal.PersistenceService;
 import com.rattencorp.bookevaluationspringboot3.model.*;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.AuthorRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.BookEditionRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.BookRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.ReviewRepository;
+import com.rattencorp.bookevaluationspringboot3.model.persistence.ReviewerRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
@@ -10,17 +17,18 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * stop gap on the way to spring data
  *
  */
 @Service
-@ApplicationScope
 public class PersistenceServiceImpl implements PersistenceService {
+
+    private static final Log LOG = LogFactory.getLog(PersistenceServiceImpl.class);
 
     private final Set<Author> authors = new HashSet<>();
     private final Map<Book, Set<BookEdition>> editions = new HashMap<>();
@@ -28,7 +36,32 @@ public class PersistenceServiceImpl implements PersistenceService {
     private final Set<Reviewer> reviewers = new HashSet<>();
 
 
-    private static final Log LOG = LogFactory.getLog(PersistenceServiceImpl.class);
+    @PersistenceContext
+    private final EntityManager entityManager;
+    
+    private final AuthorRepository authorRepo;
+    private final BookRepository bookRepo;
+    private final BookEditionRepository bookEditionRepo;
+    private final ReviewRepository reviewRepo;
+    private final ReviewerRepository reviewerRepo;
+
+    @Autowired
+    public PersistenceServiceImpl(EntityManager entityManager, 
+            AuthorRepository authorRepo, 
+            BookRepository bookRepo, 
+            BookEditionRepository bookEditionRepo, 
+            ReviewRepository reviewRepo, 
+            ReviewerRepository reviewerRepo) {
+        this.entityManager = entityManager;
+        this.authorRepo = authorRepo;
+        this.bookRepo = bookRepo;
+        this.bookEditionRepo = bookEditionRepo;
+        this.reviewRepo = reviewRepo;
+        this.reviewerRepo = reviewerRepo;
+    }
+    
+    
+    
 
     @Override
     public void persistBook(Book book) {
