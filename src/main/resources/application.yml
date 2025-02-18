@@ -61,7 +61,7 @@ com:
     rattencorp:
         aspects:
             AopConfigParameters:
-                interceptorLevel: EXECPTIONS
+                interceptorLevel: com.rattencorp.aspects.AopConfigParameters.LoggingInterceptorLevel.EXECPTIONS
         
         
 ---
