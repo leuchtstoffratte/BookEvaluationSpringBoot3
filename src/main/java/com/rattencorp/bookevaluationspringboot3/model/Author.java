@@ -27,7 +27,7 @@ public class Author implements Serializable, Comparable<Author> {
     private String surname;
 
     @ManyToMany
-    private final Set<BookEdition> books;
+    private final Set<Book> books;
 
     public Author(int authorId) {
         this.authorId = authorId;
@@ -62,11 +62,11 @@ public class Author implements Serializable, Comparable<Author> {
         return authorId;
     }
 
-    public Set<BookEdition> getBooks() {
+    public Set<Book> getBooks() {
         return books;
     }
 
-    public void addBook(BookEdition book) {
+    public void addBook(Book book) {
         this.books.add(book);
     }
 

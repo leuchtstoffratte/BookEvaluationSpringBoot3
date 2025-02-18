@@ -1,10 +1,7 @@
 package com.rattencorp.bookevaluationspringboot3.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,11 +18,14 @@ public class Review implements Serializable {
     
     @ManyToOne
     private final Reviewer reviewer;
+    @ManyToOne
+    private final BookEdition book;
+
+    //reviews might be adapted, hence these will be mutable
     private String text;
     private String title;
     private Rating rating;
     private LocalDate reviewDate;
-    private final BookEdition book;
 
 
     public Review(Reviewer reviewer, BookEdition book) {
