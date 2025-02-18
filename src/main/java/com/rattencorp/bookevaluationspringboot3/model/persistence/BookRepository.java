@@ -5,6 +5,7 @@
 package com.rattencorp.bookevaluationspringboot3.model.persistence;
 
 import com.rattencorp.bookevaluationspringboot3.model.Book;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -12,5 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author <intentionally left blank>
  */
 public interface BookRepository extends JpaRepository<Book, Integer>{
+    
+    List<Book> findByTitle(String title);
     
 }

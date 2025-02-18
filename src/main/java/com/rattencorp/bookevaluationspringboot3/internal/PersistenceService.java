@@ -25,7 +25,7 @@ public interface PersistenceService {
 
     Set<BookEdition> findAllEditionsByTitle(String title);
 
-    Reviewer findReviewerByName(String name);
+    Set<Reviewer> findReviewerByName(String name);
 
     Set<Book> getAllBooks();
     Set<BookEdition> getAllEditions();

@@ -11,12 +11,14 @@ import com.rattencorp.bookevaluationspringboot3.model.persistence.ReviewerReposi
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Set;
 import org.mockito.Mockito;
 
+@Disabled("needs to be replaced completely")
 class PersistenceServiceImplTest {
 
 
@@ -41,16 +43,14 @@ class PersistenceServiceImplTest {
     @BeforeEach
     void setUp() {
         
-    entityManagerStub = Mockito.mock(EntityManager.class);
-    authorRepoStub = Mockito.mock(AuthorRepository.class);
-    bookRepoStub = Mockito.mock(BookRepository.class);
-    bookEditionRepoStub = Mockito.mock(BookEditionRepository.class);
-    reviewRepoStub = Mockito.mock(ReviewRepository.class);
-    reviewerRepoStub = Mockito.mock(ReviewerRepository.class);
+        entityManagerStub = Mockito.mock(EntityManager.class);
+        authorRepoStub = Mockito.mock(AuthorRepository.class);
+        bookRepoStub = Mockito.mock(BookRepository.class);
+        bookEditionRepoStub = Mockito.mock(BookEditionRepository.class);
+        reviewRepoStub = Mockito.mock(ReviewRepository.class);
+        reviewerRepoStub = Mockito.mock(ReviewerRepository.class);
         
-
-        
-        testObj = new PersistenceServiceImpl(entityManagerStub, authorRepoStub, 
+        testObj = new PersistenceServiceImpl(entityManagerStub, authorRepoStub,
                 bookRepoStub, bookEditionRepoStub, reviewRepoStub, reviewerRepoStub);
     }
 

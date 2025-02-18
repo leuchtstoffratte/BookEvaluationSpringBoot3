@@ -4,13 +4,19 @@
  */
 package com.rattencorp.bookevaluationspringboot3.model.persistence;
 
+import com.rattencorp.bookevaluationspringboot3.model.Book;
 import com.rattencorp.bookevaluationspringboot3.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Set;
 
 /**
  *
  * @author <intentionally left blank>
  */
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
-    
+
+
+    Set<Review> findByBook(Book book);
+
 }

@@ -9,13 +9,12 @@ import com.rattencorp.bookevaluationspringboot3.model.persistence.ReviewReposito
 import com.rattencorp.bookevaluationspringboot3.model.persistence.ReviewerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import java.util.Collections;
-import java.util.Map;
-import java.util.HashMap;
+import jakarta.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
@@ -25,16 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
  * stop gap on the way to spring data
  *
  */
+@Transactional
 @Service
 public class PersistenceServiceImpl implements PersistenceService {
 
     private static final Log LOG = LogFactory.getLog(PersistenceServiceImpl.class);
-
-    private final Set<Author> authors = new HashSet<>();
-    private final Map<Book, Set<BookEdition>> editions = new HashMap<>();
-    private final Map<BookEdition,Set<Review>> reviews = new HashMap<>();
-    private final Set<Reviewer> reviewers = new HashSet<>();
-
 
     @PersistenceContext
     private final EntityManager entityManager;
@@ -66,101 +60,76 @@ public class PersistenceServiceImpl implements PersistenceService {
     @Override
     public void persistBook(Book book) {
         LOG.debug("persisting book '%s'".formatted(book));
-        editions.putIfAbsent(book, new HashSet<>());
-        book.authors().forEach(this::persistAuthor);
+        bookRepo.save(book);
     }
 
     @Override
     public void persistEdition(BookEdition bookEdition) {
         LOG.debug("persisting edition '%s'".formatted(bookEdition));
-        persistBook(bookEdition.book());
-        editions.get(bookEdition.book()).add(bookEdition);
-        reviews.putIfAbsent(bookEdition, new HashSet<>());
+        bookEditionRepo.save(bookEdition); //TODO is this sufficient?
     }
 
     @Override
     public void persistAuthor(Author author) {
-        authors.add(author);
+        authorRepo.save(author);
     }
 
     @Override
     public void persistReview(Review review) {
-        var r = reviews.get(review.getBook());
-        if (r != null ) {
-            r.add(review);
-        } else {
-            LOG.error("Tried to persist Review for unknown book '%s'".formatted(review.getBook()));
-        }
+        reviewRepo.save(review); //TODO: check whether I'll need to save potentially missing reviewers as well
     }
 
 
     @Override
     public void persistReviewer(Reviewer reviewer) {
-        reviewers.add(reviewer);
+        reviewerRepo.save(reviewer);
     }
 
     @Override
     public BookEdition findBookByIsbn(String isbn) {
-        return editions.values()
-                .stream()
-                .flatMap(Set::stream)
-                .filter(e -> e.numberIsbn().equalsIgnoreCase(isbn))
-                .findFirst()
-                .orElse(null);
+        return bookEditionRepo.findByNumberIsbn(isbn).getFirst();
     }
 
     @Override
     public Book findBookByTitle(String title) {
-        return editions.keySet()
-                .stream()
-                .filter(e -> e.title().equalsIgnoreCase(title))
-                .findFirst()
-                .orElse(null);
+        return bookRepo.findByTitle(title).getFirst();
     }
 
     @Override
     public Set<Book> findAllBookByAuthor(Author author) {
-        return editions.keySet().stream()
-                .filter(e -> e.authors().contains(author))
-                .collect(Collectors.toSet());
+        if (author.getBooks() == null || author.getBooks().isEmpty()) {
+            return authorRepo.findAll(Example.of(author)).stream().flatMap(a -> a.getBooks().stream()).collect(Collectors.toSet());
+        }else
+            return new HashSet<>(author.getBooks());
     }
 
     @Override
     public Set<BookEdition> findAllEditionsByTitle(String title) {
-        return editions.getOrDefault(findBookByTitle(title), new HashSet<>());
+        return new HashSet<>(bookEditionRepo.findByTitle(title));
     }
 
     @Override
-    public Reviewer findReviewerByName(String name) {
-        return reviewers.stream()
-                .filter(r -> r.getName().equalsIgnoreCase(name))
-                .findFirst()
-                .orElse(null);
+    public Set<Reviewer> findReviewerByName(String name) {
+        return reviewerRepo.findByName(name);
     }
 
     @Override
     public Set<Book> getAllBooks() {
-        return Collections.unmodifiableSet(editions.keySet());
+        return new HashSet<>(bookRepo.findAll());
     }
 
     @Override
     public Set<BookEdition> getAllEditions() {
-        return editions.values()
-                .stream()
-                .flatMap(Set::stream)
-                .collect(Collectors.toUnmodifiableSet());
+        return new HashSet<>(bookEditionRepo.findAll());
     }
 
     @Override
     public Set<Author> getAllAuthors() {
-        return Collections.unmodifiableSet(authors);
+        return new HashSet<>(authorRepo.findAll());
     }
 
     @Override
     public Set<Review> getAllReviewsForBook(Book book) {
-        return editions.getOrDefault(book, new HashSet<>())
-                .stream()
-                .flatMap(s -> reviews.getOrDefault(s, new HashSet<>()).stream())
-                .collect(Collectors.toUnmodifiableSet());
+        return reviewRepo.findByBook(book);
     }
 }

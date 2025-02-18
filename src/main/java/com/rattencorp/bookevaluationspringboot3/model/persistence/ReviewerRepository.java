@@ -7,10 +7,15 @@ package com.rattencorp.bookevaluationspringboot3.model.persistence;
 import com.rattencorp.bookevaluationspringboot3.model.Reviewer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Set;
+
 /**
  *
  * @author <intentionally left blank>
  */
 public interface ReviewerRepository extends JpaRepository<Reviewer, Integer>{
-    
+
+
+    Set<Reviewer> findByName(String name);
+
 }
